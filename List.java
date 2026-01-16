@@ -40,12 +40,16 @@ public class List {
     /** GIVE Textual representation of this list. */
     public String toString() {
         // Your code goes here
-        String result = "";
+        String result = "(";
         Node current = first;
         while (current!=null) {
             result= result+current.cp.toString();
+            if (current.next!=null) {
+                result+=" ";
+            }
             current= current.next;
         }
+        result+= ")";
         return result;
     }
 

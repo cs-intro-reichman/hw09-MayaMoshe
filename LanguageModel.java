@@ -62,26 +62,27 @@ public class LanguageModel {
 	// characters in the given list. */
 	void calculateProbabilities(List probs) {				
 		// Your code goes here
-        if(probs==null){
+        if (probs == null){
+            return;
+        } 
+        int total = 0;
+        ListIterator it = probs.listIterator(0);
+        while (it.hasNext()) {
+            CharData cd = it.next();
+            total += cd.count;
+        }
+        if (total == 0) {
             return;
         }
-        int total =0;
-        ListIterator it1=probs.listIterator(0);
-        while (it1!=null&&it1.hasNext()) {
-            CharData cd =it1.next();
-            total= total+cd.count;
+        double cumulative = 0.0;
+        it = probs.listIterator(0);
+        while (it.hasNext()) {
+            CharData cd = it.next();
+            cd.p = (double) cd.count / total;
+            cumulative += cd.p;
+            cd.cp = cumulative;
         }
-        if (total==0) {
-            return;
-        }
-        double result=0.0;
-        ListIterator it2= probs.listIterator(0);
-        while (it2!=null&&it2.hasNext()) {
-            CharData cd =it1.next();
-            cd.p = (double)cd.count/total;
-            result = result+cd.p;
-            cd.p= result;
-        }
+
 	}
 
     // Returns a random character from the given probabilities list.
@@ -93,7 +94,7 @@ public class LanguageModel {
         double r = randomGenerator.nextDouble();
         ListIterator it = probs.listIterator(0);
         CharData last = null;
-        while (it!=null&&it.hasNext()) {
+        while (it.hasNext()) {
             CharData cd = it.next();
             last = cd;
             if (cd.cp>r) {
