@@ -130,11 +130,11 @@ public class LanguageModel {
         while (out.length() < textLength) {
             List probs = CharDataMap.get(window);
             if (probs == null) {
-                break;
+                return out.toString();
             }
             char nextChar = getRandomChar(probs);
             out.append(nextChar);
-            window = window.substring(1) + nextChar;
+            window = out.substring(out.length() - windowLength);
         }
     return out.toString();
 	}
