@@ -82,7 +82,17 @@ public class List {
             cd.count++;
         }
         else{
-            addFirst(chr);
+            CharData cd = new CharData(chr);
+            Node newNode = new Node(cd, null);
+            if (first == null) {
+                first = newNode;
+            } else {
+            Node cur = first;
+            while (cur.next != null) {
+                cur = cur.next;
+            }
+            cur.next = newNode;  
+            }
         }
     }
 
