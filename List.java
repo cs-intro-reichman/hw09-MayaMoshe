@@ -76,24 +76,12 @@ public class List {
      *  given chr to the beginning of this list. */
     public void update(char chr) {
         // Your code goes here
-        int index = indexOf(chr);
-        if(index!=-1){
+            int index = indexOf(chr);
+        if (index != -1) {
             CharData cd = get(index);
             cd.count++;
-        }
-        else{
-            CharData cd = new CharData(chr);
-            Node newNode = new Node(cd, null);
-            if (first == null) {
-                first = newNode;
-            } else {
-            Node cur = first;
-            while (cur.next != null) {
-                cur = cur.next;
-            }
-            cur.next = newNode;  
-            }
-            size++;
+        } else {
+            addFirst(chr);
         }
     }
 

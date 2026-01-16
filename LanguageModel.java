@@ -98,6 +98,9 @@ public class LanguageModel {
         }
         double r = randomGenerator.nextDouble();
         ListIterator it = probs.listIterator(0);
+        if (it == null) {
+            return '\0';
+        }
         CharData last = null;
         while (it.hasNext()) {
             CharData cd = it.next();
@@ -106,7 +109,7 @@ public class LanguageModel {
                 return cd.chr;
             }
         }
-		return last.chr;
+		return (last == null) ? '\0' : last.chr;
 	}
 
     /**
@@ -126,7 +129,7 @@ public class LanguageModel {
         }
         StringBuilder out = new StringBuilder();
         out.append(initialText);
-        String window = initialText.substring(initialText.length() - windowLength);
+        String window = out.substring(out.length() - windowLength);
         while (out.length() < textLength) {
             List probs = CharDataMap.get(window);
             if (probs == null) {
