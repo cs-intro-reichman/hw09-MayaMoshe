@@ -76,11 +76,16 @@ public class LanguageModel {
         }
         double cumulative = 0.0;
         it = probs.listIterator(0);
+        CharData last = null;
         while (it.hasNext()) {
             CharData cd = it.next();
             cd.p = (double) cd.count / total;
             cumulative += cd.p;
             cd.cp = cumulative;
+            last = cd; 
+        }
+        if (last != null) {
+        last.cp = 1.0;
         }
 
 	}
@@ -97,7 +102,7 @@ public class LanguageModel {
         while (it.hasNext()) {
             CharData cd = it.next();
             last = cd;
-            if (cd.cp>=r) {
+            if (cd.cp>r) {
                 return cd.chr;
             }
         }
