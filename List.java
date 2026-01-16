@@ -93,6 +93,7 @@ public class List {
             }
             cur.next = newNode;  
             }
+            size++;
         }
     }
 
